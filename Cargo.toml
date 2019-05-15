@@ -1,0 +1,14 @@
+[package]
+name = "oss-storage-layer"
+version = "0.1.0"
+authors = ["mapleFU <1506118561@qq.com>"]
+edition = "2018"
+
+[dependencies]
+zookeeper = "0.5"
+mio = "0.6"
+tokio = "0.1.20"
+zmq = "0.8"
+log = "0.4.6"
+env_logger = "0.6.1"
+protobuf = "2.5.0"

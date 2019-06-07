@@ -26,6 +26,8 @@ pub struct Server {
     // message fields
     pub zmq_tcp_port: ::std::string::String,
     pub zmq_host: ::std::string::String,
+    pub total_space: u64,
+    pub available_space: u64,
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
     pub cached_size: ::protobuf::CachedSize,
@@ -93,6 +95,36 @@ impl Server {
     pub fn take_zmq_host(&mut self) -> ::std::string::String {
         ::std::mem::replace(&mut self.zmq_host, ::std::string::String::new())
     }
+
+    // uint64 total_space = 3;
+
+
+    pub fn get_total_space(&self) -> u64 {
+        self.total_space
+    }
+    pub fn clear_total_space(&mut self) {
+        self.total_space = 0;
+    }
+
+    // Param is passed by value, moved
+    pub fn set_total_space(&mut self, v: u64) {
+        self.total_space = v;
+    }
+
+    // uint64 available_space = 4;
+
+
+    pub fn get_available_space(&self) -> u64 {
+        self.available_space
+    }
+    pub fn clear_available_space(&mut self) {
+        self.available_space = 0;
+    }
+
+    // Param is passed by value, moved
+    pub fn set_available_space(&mut self, v: u64) {
+        self.available_space = v;
+    }
 }
 
 impl ::protobuf::Message for Server {
@@ -109,6 +141,20 @@ impl ::protobuf::Message for Server {
                 },
                 2 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.zmq_host)?;
+                },
+                3 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    let tmp = is.read_uint64()?;
+                    self.total_space = tmp;
+                },
+                4 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    let tmp = is.read_uint64()?;
+                    self.available_space = tmp;
                 },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
@@ -128,6 +174,12 @@ impl ::protobuf::Message for Server {
         if !self.zmq_host.is_empty() {
             my_size += ::protobuf::rt::string_size(2, &self.zmq_host);
         }
+        if self.total_space != 0 {
+            my_size += ::protobuf::rt::value_size(3, self.total_space, ::protobuf::wire_format::WireTypeVarint);
+        }
+        if self.available_space != 0 {
+            my_size += ::protobuf::rt::value_size(4, self.available_space, ::protobuf::wire_format::WireTypeVarint);
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
         my_size
@@ -139,6 +191,12 @@ impl ::protobuf::Message for Server {
         }
         if !self.zmq_host.is_empty() {
             os.write_string(2, &self.zmq_host)?;
+        }
+        if self.total_space != 0 {
+            os.write_uint64(3, self.total_space)?;
+        }
+        if self.available_space != 0 {
+            os.write_uint64(4, self.available_space)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -192,6 +250,16 @@ impl ::protobuf::Message for Server {
                     |m: &Server| { &m.zmq_host },
                     |m: &mut Server| { &mut m.zmq_host },
                 ));
+                fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeUint64>(
+                    "total_space",
+                    |m: &Server| { &m.total_space },
+                    |m: &mut Server| { &mut m.total_space },
+                ));
+                fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeUint64>(
+                    "available_space",
+                    |m: &Server| { &m.available_space },
+                    |m: &mut Server| { &mut m.available_space },
+                ));
                 ::protobuf::reflect::MessageDescriptor::new::<Server>(
                     "Server",
                     fields,
@@ -216,6 +284,8 @@ impl ::protobuf::Clear for Server {
     fn clear(&mut self) {
         self.zmq_tcp_port.clear();
         self.zmq_host.clear();
+        self.total_space = 0;
+        self.available_space = 0;
         self.unknown_fields.clear();
     }
 }
@@ -233,18 +303,27 @@ impl ::protobuf::reflect::ProtobufValue for Server {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\x08zk.proto\"E\n\x06Server\x12\x20\n\x0czmq_tcp_port\x18\x01\x20\x01(\
-    \tR\nzmqTcpPort\x12\x19\n\x08zmq_host\x18\x02\x20\x01(\tR\x07zmqHostJ\
-    \xd6\x01\n\x06\x12\x04\0\0\x07\x01\n\x08\n\x01\x0c\x12\x03\0\0\x12\n\n\n\
-    \x02\x04\0\x12\x04\x02\0\x07\x01\n\n\n\x03\x04\0\x01\x12\x03\x02\x08\x0e\
-    \n\x1b\n\x04\x04\0\x02\0\x12\x03\x04\x04\x1c\x1a\x0e\x20addr\x20for\x20z\
-    mq\n\n\r\n\x05\x04\0\x02\0\x04\x12\x04\x04\x04\x02\x10\n\x0c\n\x05\x04\0\
-    \x02\0\x05\x12\x03\x04\x04\n\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\x04\x0b\
-    \x17\n\x0c\n\x05\x04\0\x02\0\x03\x12\x03\x04\x1a\x1b\n\x1b\n\x04\x04\0\
-    \x02\x01\x12\x03\x06\x04\x18\x1a\x0e\x20host\x20for\x20zmq\n\n\r\n\x05\
-    \x04\0\x02\x01\x04\x12\x04\x06\x04\x04\x1c\n\x0c\n\x05\x04\0\x02\x01\x05\
-    \x12\x03\x06\x04\n\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x06\x0b\x13\n\
-    \x0c\n\x05\x04\0\x02\x01\x03\x12\x03\x06\x16\x17b\x06proto3\
+    \n\x08zk.proto\"\x8f\x01\n\x06Server\x12\x20\n\x0czmq_tcp_port\x18\x01\
+    \x20\x01(\tR\nzmqTcpPort\x12\x19\n\x08zmq_host\x18\x02\x20\x01(\tR\x07zm\
+    qHost\x12\x1f\n\x0btotal_space\x18\x03\x20\x01(\x04R\ntotalSpace\x12'\n\
+    \x0favailable_space\x18\x04\x20\x01(\x04R\x0eavailableSpaceJ\xe2\x02\n\
+    \x06\x12\x04\0\0\n\x01\n\x08\n\x01\x0c\x12\x03\0\0\x12\n\n\n\x02\x04\0\
+    \x12\x04\x02\0\n\x01\n\n\n\x03\x04\0\x01\x12\x03\x02\x08\x0e\n\x1b\n\x04\
+    \x04\0\x02\0\x12\x03\x04\x04\x1c\x1a\x0e\x20addr\x20for\x20zmq\n\n\r\n\
+    \x05\x04\0\x02\0\x04\x12\x04\x04\x04\x02\x10\n\x0c\n\x05\x04\0\x02\0\x05\
+    \x12\x03\x04\x04\n\n\x0c\n\x05\x04\0\x02\0\x01\x12\x03\x04\x0b\x17\n\x0c\
+    \n\x05\x04\0\x02\0\x03\x12\x03\x04\x1a\x1b\n\x1b\n\x04\x04\0\x02\x01\x12\
+    \x03\x06\x04\x18\x1a\x0e\x20host\x20for\x20zmq\n\n\r\n\x05\x04\0\x02\x01\
+    \x04\x12\x04\x06\x04\x04\x1c\n\x0c\n\x05\x04\0\x02\x01\x05\x12\x03\x06\
+    \x04\n\n\x0c\n\x05\x04\0\x02\x01\x01\x12\x03\x06\x0b\x13\n\x0c\n\x05\x04\
+    \0\x02\x01\x03\x12\x03\x06\x16\x17\n\x0b\n\x04\x04\0\x02\x02\x12\x03\x08\
+    \x04\x1b\n\r\n\x05\x04\0\x02\x02\x04\x12\x04\x08\x04\x06\x18\n\x0c\n\x05\
+    \x04\0\x02\x02\x05\x12\x03\x08\x04\n\n\x0c\n\x05\x04\0\x02\x02\x01\x12\
+    \x03\x08\x0b\x16\n\x0c\n\x05\x04\0\x02\x02\x03\x12\x03\x08\x19\x1a\n\x0b\
+    \n\x04\x04\0\x02\x03\x12\x03\t\x04\x1f\n\r\n\x05\x04\0\x02\x03\x04\x12\
+    \x04\t\x04\x08\x1b\n\x0c\n\x05\x04\0\x02\x03\x05\x12\x03\t\x04\n\n\x0c\n\
+    \x05\x04\0\x02\x03\x01\x12\x03\t\x0b\x1a\n\x0c\n\x05\x04\0\x02\x03\x03\
+    \x12\x03\t\x1d\x1eb\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {

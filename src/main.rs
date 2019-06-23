@@ -9,16 +9,26 @@ use std::str::{self, from_utf8};
 use std::io::{self, Cursor, Write};
 use std::fs::{self, File};
 use std::path::Path;
+use std::ops::Deref;
+
+mod db;
+use db::redis::RedisConnection;
 
 use zookeeper::{Acl, CreateMode, Watcher, WatchedEvent, ZooKeeper};
 use zookeeper::recipes::cache::PathChildrenCache;
 use protobuf::{self, Message, ProtobufResult};
 
+use uuid::Uuid;
 use sysinfo::{NetworkExt, System, SystemExt, DiskExt};
 use eventual::Timer;
 
+use serde::{Serialize, Deserialize};
 
-use rocket::{self, get, routes, put};
+use rocket_contrib::json::{Json, JsonValue};
+use redis;
+use r2d2_redis::{r2d2, RedisConnectionManager};
+use r2d2_redis::redis::Commands as RedisCommands;
+use rocket::{self, get, routes, put, post, patch};
 use multipart::server::Multipart;
 use multipart::server::save::Entries;
 use multipart::server::save::SaveResult::*;
@@ -33,6 +43,14 @@ use rocket_multipart_form_data::{mime, MultipartFormDataOptions, MultipartFormDa
 
 use oss_storage_layer::zk::{Server, self};
 
+
+impl Deref for RedisConnection {
+    type Target = r2d2::PooledConnection<RedisConnectionManager>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
 
 struct LoggingWatcher;
 impl Watcher for LoggingWatcher {
@@ -53,6 +71,40 @@ fn zk_server_urls() -> String {
 
 const ZKDIR: &'static str = "/fs";
 const DATA_DIR: &'static str = "data";
+
+
+#[derive(Deserialize)]
+struct PostBody {
+    size: u64
+}
+/// 上传之前先查询 uuid
+///
+/// If Ok return target uuid, which provides the next operations
+/// Get size from body
+#[post("/temp/<file_hash>", data = "<post_body>")]
+fn temp_upload(post_body: Json<PostBody>, connection: RedisConnection, file_hash: String)->Result<String, Custom<String>> {
+    let post_body: PostBody = post_body.into_inner();
+
+    let size = post_body.size;
+//    if let None = size {
+//        return Err(Custom(Status::ExpectationFailed, "Require header for size.".to_string()));
+//    }
+//    let size = size.unwrap();
+    // throw unimplemented
+    unimplemented!();
+    // create new uuid string
+    let current_uuid = Uuid::new_v4();
+
+
+    Ok(current_uuid.to_string())
+}
+
+#[patch("/temp/<uid>", data = "<data>")]
+fn move_to_persistence(uid: String, data: Data)->Result<(), Custom<String>> {
+    // throw unimplemented
+    unimplemented!();
+    Err(Custom(Status::NotImplemented, "Not Implemented".to_string()))
+}
 
 #[put("/data/<uid>", data = "<data>")]
 fn handle_post(uid: String, data: Data)->Result<(), Custom<String>> {
@@ -128,6 +180,7 @@ fn zn_conn() -> Server {
 
 
 fn main() {
+
 
     let mut sys = System::new();
 
@@ -231,9 +284,24 @@ fn main() {
         .port(http_port_i32)
         .finalize().unwrap();
 
+    let redis_address = match env::var("REDIS_ADDRESS") {
+        Ok(val) => val,
+        Err(_) => "redis://127.0.0.1/".to_string(),
+    };
+
+    // unwrap redis result
+    let redis_client = redis::Client::open(redis_address.as_str()).unwrap();
+    let manager = RedisConnectionManager::new(redis_address.as_str()).unwrap();
+    let pool = r2d2::Pool::builder()
+        .build(manager)
+        .unwrap();
+
     rocket::custom(config)
+        .manage(pool)
         .mount("/", routes![handle_multi])
         .mount("/",  routes![handle_post])
         .mount("/", routes![handle_get])
+        .mount("/", routes![move_to_persistence])
+        .mount("/", routes![temp_upload])
         .launch();
 }

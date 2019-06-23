@@ -11,6 +11,8 @@ extern crate env_logger;
 
 extern crate zmq;
 
+pub mod db;
+
 pub mod zk;
 
 pub use zk::{Server, file_descriptor_proto};

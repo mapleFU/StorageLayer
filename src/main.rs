@@ -6,13 +6,19 @@ use std::thread;
 use std::env;
 use std::sync::mpsc;
 use std::str::{self, from_utf8};
-use std::io::{self, Cursor, Write};
+use std::io::prelude::*;
+use std::io::{self, Cursor, Write, BufReader, BufRead, Read};
 use std::fs::{self, File};
 use std::path::Path;
 use std::ops::Deref;
 
 mod db;
 use db::redis::RedisConnection;
+
+use sha2::{Sha256, Digest};
+
+use flate2::Compression;
+use flate2::read::ZlibEncoder;
 
 use zookeeper::{Acl, CreateMode, Watcher, WatchedEvent, ZooKeeper};
 use zookeeper::recipes::cache::PathChildrenCache;
@@ -23,9 +29,11 @@ use sysinfo::{NetworkExt, System, SystemExt, DiskExt};
 use eventual::Timer;
 
 use serde::{Serialize, Deserialize};
+use data_encoding::{HEXUPPER, HEXLOWER};
 
 use rocket_contrib::json::{Json, JsonValue};
 use redis;
+use redis::RedisResult;
 use r2d2_redis::{r2d2, RedisConnectionManager};
 use r2d2_redis::redis::Commands as RedisCommands;
 use rocket::{self, get, routes, put, post, patch};
@@ -71,40 +79,141 @@ fn zk_server_urls() -> String {
 
 const ZKDIR: &'static str = "/fs";
 const DATA_DIR: &'static str = "data";
-
+const TMP_DATA_DIR: &'static str = "data/temp";
 
 #[derive(Deserialize)]
 struct PostBody {
     size: u64
 }
+
+
+/// Store the uuid pair of
+#[derive(Deserialize, Serialize)]
+struct RedisUuidMessage {
+    /// Size of the file
+    size: u64,
+    /// Unique id to identify the file
+    uid: String,
+    /// Hash value of the file
+    file_hash: String
+}
+
+fn exists_datafile_with_name<T: AsRef<str>>(filename :T)-> bool {
+    // TODO: build with more specific name
+    // TODO: learn how to handle Rust string
+    let new_name = String::from(DATA_DIR.clone().to_string() + filename.as_ref() + ".dat");
+    let path = Path::new(&new_name);
+    let ret = path.exists() && path.is_file();
+    ret
+}
+
 /// 上传之前先查询 uuid
 ///
 /// If Ok return target uuid, which provides the next operations
 /// Get size from body
+///
+/// Return 400 when meeting duplicate
 #[post("/temp/<file_hash>", data = "<post_body>")]
-fn temp_upload(post_body: Json<PostBody>, connection: RedisConnection, file_hash: String)->Result<String, Custom<String>> {
+fn temp_uuid_request(post_body: Json<PostBody>, connection: RedisConnection, file_hash: String)->Result<String, Custom<String>> {
+    // TODO: make clear the way to handle string
+    if exists_datafile_with_name(&file_hash) {
+        return Err(Custom(Status::BadRequest, "duplicate hash".to_string()));
+    }
     let post_body: PostBody = post_body.into_inner();
-
+    // get size
     let size = post_body.size;
-//    if let None = size {
-//        return Err(Custom(Status::ExpectationFailed, "Require header for size.".to_string()));
-//    }
-//    let size = size.unwrap();
-    // throw unimplemented
-    unimplemented!();
+
     // create new uuid string
-    let current_uuid = Uuid::new_v4();
+    let uid = Uuid::new_v4().to_string();
+    let message = RedisUuidMessage {size, uid: uid.clone(), file_hash};
+//    let message = serde_json::to_string(&message).map_err(|e| Err(Custom(Status::InternalServerError, "error occurs when changing message to string".to_string())));
+    let message = serde_json::to_string(&message).unwrap();
+    // set 60 second for expire
+    let _: () = connection.set_ex(uid.clone(), message, 12000).unwrap();
 
+    Ok(uid)
+}
 
-    Ok(current_uuid.to_string())
+#[put("/temp/<uid>")]
+fn move_to_persistence(uid: String, connection: RedisConnection) -> Result<(), Custom<String>> {
+    let s: RedisResult<String> = connection.get(&uid);
+    if !s.is_ok() {
+        return Err(Custom(Status::NotFound, format!("uuid {} not found", uid.clone())));
+    }
+    let s = s.unwrap();
+    // change to uuid message
+    let s: RedisUuidMessage = serde_json::from_str(&s).unwrap();
+
+    // TODO: use concat to optimize these code
+    let new_name: String = TMP_DATA_DIR.clone().to_string() + &"/".to_string() + &s.uid;
+    let path = Path::new(&new_name);
+    let f = File::open(path).unwrap();
+    let mut z = ZlibEncoder::new(f, Compression::fast());
+    let mut buffer = [0;1024];
+
+    // TODO: learn how to fix [temporary value is freed at the end of this statement]
+    let cur_path = DATA_DIR.clone().to_string() + &"/".to_string() + &s.file_hash;
+    let dest_path = Path::new(&cur_path );
+    let mut f = File::create(dest_path).unwrap();
+    io::copy(&mut z, &mut f);
+
+    Ok(())
 }
 
 #[patch("/temp/<uid>", data = "<data>")]
-fn move_to_persistence(uid: String, data: Data)->Result<(), Custom<String>> {
+fn upload_temp_data(uid: String, data: Data, connection: RedisConnection)->Result<(), Custom<String>> {
     // throw unimplemented
-    unimplemented!();
-    Err(Custom(Status::NotImplemented, "Not Implemented".to_string()))
+    let s: RedisResult<String> = connection.get(&uid);
+    if !s.is_ok() {
+        return Err(Custom(Status::NotFound, format!("uuid {} not found", uid.clone())));
+    }
+    let s = s.unwrap();
+    // change to uuid message
+    let s: RedisUuidMessage = serde_json::from_str(&s).unwrap();
+
+//    let new_name = String::from(DATA_DIR.clone().to_string() + filename.as_ref() + ".dat");
+    let new_name: String = TMP_DATA_DIR.clone().to_string() + "/" + &s.uid;
+    let path = Path::new(&new_name);
+    // create file with path
+    // TODO: add some logic lock to the file
+//    let created_file = File::create(path).map_err(|io_error| Custom(Status::InternalServerError, "create file error"))?;
+    // Load stream to file
+    data.stream_to_file(path);
+
+    const BUFFER_SIZE: usize = 1024;
+    if let Ok(mut file) = fs::File::open(&path) {
+        let mut sh = Sha256::default();
+        let mut buffer = [0u8; BUFFER_SIZE];
+        loop {
+
+            let n = match file.read(&mut buffer) {
+                Ok(n) => n,
+                Err(_) => {
+                    return Err(Custom(Status::InternalServerError, "Error when checking file".to_string()));
+                },
+            };
+            sh.input(&buffer[..n]);
+            if n == 0 || n < BUFFER_SIZE {
+                break;
+            }
+        }
+        // TODO: handle this
+        let shas = sh.result();
+        println!("Upper {}; Lower {}", HEXLOWER.encode(shas.as_slice()), HEXUPPER.encode(shas.as_slice()));
+        if HEXLOWER.encode(shas.as_slice()) == s.file_hash {
+            return Ok(());
+        } else {
+            return Err(Custom(Status::BadRequest, "Different hash when uploading file".to_string()));
+        }
+
+    } else {
+        return Err(Custom(Status::InternalServerError, "Error when opening file".to_string()));
+    }
+    // 存储成功
+    Ok(())
 }
+
+
 
 #[put("/data/<uid>", data = "<data>")]
 fn handle_post(uid: String, data: Data)->Result<(), Custom<String>> {
@@ -302,6 +411,7 @@ fn main() {
         .mount("/",  routes![handle_post])
         .mount("/", routes![handle_get])
         .mount("/", routes![move_to_persistence])
-        .mount("/", routes![temp_upload])
+        .mount("/", routes![temp_uuid_request])
+        .mount("/", routes![upload_temp_data])
         .launch();
 }

@@ -38,7 +38,7 @@ use eventual::Timer;
 use zip;
 
 use serde::{Serialize, Deserialize};
-use data_encoding::{HEXUPPER, HEXLOWER};
+use data_encoding::{HEXUPPER, HEXLOWER, BASE64};
 
 use rocket_contrib::json::{Json, JsonValue};
 use redis;
@@ -140,6 +140,7 @@ fn temp_uuid_request(post_body: Json<PostBody>, connection: RedisConnection, fil
     // set 60 second for expire
     let _: () = connection.set_ex(uid.clone(), message, 12000).unwrap();
 
+    println!("Return uid {}" , uid);
     Ok(uid)
 }
 
@@ -176,6 +177,7 @@ fn move_to_persistence(uid: String, connection: RedisConnection) -> Result<(), C
 #[patch("/temp/<uid>", data = "<data>")]
 fn upload_temp_data(uid: String, data: Data, connection: RedisConnection)->Result<(), Custom<String>> {
     // throw unimplemented
+    println!("Patch uuid {}", uid);
     let s: RedisResult<String> = connection.get(&uid);
     if !s.is_ok() {
         return Err(Custom(Status::NotFound, format!("uuid {} not found", uid.clone())));
@@ -212,8 +214,9 @@ fn upload_temp_data(uid: String, data: Data, connection: RedisConnection)->Resul
         }
         // TODO: handle this
         let shas = sh.result();
-        println!("Upper {}; Lower {}", HEXLOWER.encode(shas.as_slice()), HEXUPPER.encode(shas.as_slice()));
-        if HEXLOWER.encode(shas.as_slice()) == s.file_hash {
+        // TODO: make clear the diff
+        println!("Upper {}; Lower {}, s.file_hash {}, base64 {}", HEXLOWER.encode(shas.as_slice()), HEXUPPER.encode(shas.as_slice()), s.file_hash, BASE64.encode(shas.as_slice()));
+        if BASE64.encode(shas.as_slice()) == s.file_hash {
             return Ok(());
         } else {
             return Err(Custom(Status::BadRequest, "Different hash when uploading file".to_string()));
@@ -263,26 +266,52 @@ fn handle_multi(cont_type: &ContentType, data: Data) -> Result<Stream<Cursor<Vec
     Ok(Stream::from(Cursor::new(Vec::from("nmsl"))))
 }
 
-#[get("/hash/<hash>")]
-fn handle_hash_get(hash: String) {
-//    println!("你妈死了");
+#[get("/data/exists/<hash>")]
+fn handle_exists(hash: String) -> Result<(), Custom<String>> {
     let path = String::from("data/") + &hash;
     let file_path = Path::new(&path);
-}
 
-#[get("/data/<uid>")]
-fn handle_get(uid: String)->Result<rocket::response::NamedFile, Custom<String>> {
-    println!("Get uid {}", uid);
-
-    let path = String::from("data/") + &uid;
-    let file_path = Path::new(&path);
-
-    if !file_path.exists() && file_path.is_file() {
+    if file_path.exists() && file_path.is_file() {
         // maybe zip
-        return Err(Custom(Status::NotFound, "NotFound".to_string()))
+        return Ok(());
+
     }
     // TODO: unuse unwrap
-    Ok(rocket::response::NamedFile::open(file_path).unwrap())
+    let zip_path = String::from("data/") + &hash + ".zip";
+    let zip_file_path = Path::new(&zip_path);
+    if zip_file_path.exists() && zip_file_path.is_file() {
+        // maybe zip
+        return Ok(());
+
+    }
+    Err(Custom(Status::NotFound, "NotFound".to_string()))
+}
+
+#[get("/data/<hash>")]
+fn handle_get(hash: String)->Result<rocket::response::NamedFile, Custom<String>> {
+
+    let path = String::from("data/") + &hash;
+    let file_path = Path::new(&path);
+
+    if file_path.exists() && file_path.is_file() {
+        // maybe zip
+        return Ok(rocket::response::NamedFile::open(file_path).unwrap());
+
+    }
+    // TODO: unuse unwrap
+    let zip_path = String::from("data/") + &hash + ".zip";
+    let zip_file_path = Path::new(&zip_path);
+    if zip_file_path.exists() && zip_file_path.is_file() {
+        let zip_c_path = CString::new(zip_path.clone()).unwrap();
+        let c_path = CString::new(path.clone()).unwrap();
+        unsafe {
+            mwish_c_encoding::oss_decompress(zip_c_path.as_ptr(), c_path.as_ptr());
+        }
+        // maybe zip
+        return Ok(rocket::response::NamedFile::open(&path).unwrap());
+
+    }
+    Err(Custom(Status::NotFound, "NotFound".to_string()))
 }
 
 
@@ -319,19 +348,23 @@ fn main() {
 
     let ctx = zmq::Context::new();
 
-    let mut zmq_socket = ctx.socket(zmq::SUB).unwrap();
-    let mut zmq_push_socket = ctx.socket(zmq::PUSH).unwrap();
+
 
     thread::spawn(move || {
+        let mut zmq_socket = ctx.socket(zmq::SUB).unwrap();
+        let mut zmq_push_socket = ctx.socket(zmq::PUSH).unwrap();
+
         if let Err(e) = zmq_socket.connect("tcp://127.0.0.1:11234") {
             println!("{:?}", e);
             panic!();
         }
+
         if let Err(e) = zmq_push_socket.connect("tcp://127.0.0.1:5558") {
             println!("{:?}", e);
             panic!();
         }
-        zmq_socket.set_subscribe("object ".as_bytes());
+        zmq_socket.set_subscribe("hash".as_bytes());
+        println!("ZMQ Ready");
         loop {
             let mut message = zmq::Message::new().unwrap();
             let rs = zmq_socket.recv(&mut message, zmq::DONTWAIT);
@@ -431,5 +464,7 @@ fn main() {
         .mount("/", routes![move_to_persistence])
         .mount("/", routes![temp_uuid_request])
         .mount("/", routes![upload_temp_data])
+        .mount("/", routes![handle_exists])
         .launch();
 }
+

@@ -10,20 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="586cf92e-6597-4121-9cd0-4d9d8e4f2294" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/OssCZip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OssCZip/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OssCZip/build.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OssCZip/src/lib.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/oss-storage-layer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/oss-storage-layer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/zk.rs" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +64,7 @@
         <counts>
           <entry key="gitignore" value="12" />
           <entry key="proto" value="17" />
-          <entry key="rs" value="12750" />
+          <entry key="rs" value="13317" />
           <entry key="toml" value="178" />
           <entry key="txt" value="8" />
         </counts>
@@ -86,7 +73,7 @@
         <counts>
           <entry key="CMakeLists.txt" value="8" />
           <entry key="PLAIN_TEXT" value="29" />
-          <entry key="Rust" value="12750" />
+          <entry key="Rust" value="13317" />
           <entry key="TOML" value="178" />
         </counts>
       </usages-collector>
@@ -97,10 +84,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="268" column="26" lean-forward="true" selection-start-line="268" selection-start-column="26" selection-end-line="268" selection-end-column="26" />
+            <state relative-caret-position="388">
+              <caret line="268" column="26" selection-start-line="268" selection-start-column="26" selection-end-line="268" selection-end-column="26" />
               <folding>
-                <marker date="1561360546817" expanded="true" signature="5106:5107" ph="..." />
+                <marker date="1561375252473" expanded="true" signature="5151:5152" ph="..." />
               </folding>
             </state>
           </provider>
@@ -195,9 +182,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ERROR</find>
-      <find>file_accepter</find>
-      <find>println</find>
       <find>boundary</find>
       <find>StdoutTee</find>
       <find>service_fn</find>
@@ -225,6 +209,9 @@
       <find>compress</find>
       <find>oss</find>
       <find>fs_extra</find>
+      <find>get</find>
+      <find>put</find>
+      <find>HEXLOWER</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -260,7 +247,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
@@ -432,7 +419,7 @@
       <workItem from="1561100423853" duration="6100000" />
       <workItem from="1561138584425" duration="2174000" />
       <workItem from="1561188314918" duration="32526000" />
-      <workItem from="1561359352813" duration="1405000" />
+      <workItem from="1561359352813" duration="6816000" />
     </task>
     <servers />
   </component>
@@ -448,24 +435,25 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76029000" />
+    <option name="totallyTimeSpent" value="81440000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82592595" visible="true" weight="0.18597998" />
-      <window_info id="Structure" order="1" sideWeight="0.17407407" side_tool="true" visible="true" weight="0.18597998" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8250729" visible="true" weight="0.13844515" />
+      <window_info id="Structure" order="1" sideWeight="0.17492712" side_tool="true" visible="true" weight="0.13844515" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893504" weight="0.3477707" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893504" visible="true" weight="0.32079208" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49946752" visible="true" weight="0.3121019" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49946752" weight="0.20396039" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50106496" side_tool="true" weight="0.3069307" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -595,10 +583,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="268" column="26" lean-forward="true" selection-start-line="268" selection-start-column="26" selection-end-line="268" selection-end-column="26" />
+        <state relative-caret-position="388">
+          <caret line="268" column="26" selection-start-line="268" selection-start-column="26" selection-end-line="268" selection-end-column="26" />
           <folding>
-            <marker date="1561360546817" expanded="true" signature="5106:5107" ph="..." />
+            <marker date="1561375252473" expanded="true" signature="5151:5152" ph="..." />
           </folding>
         </state>
       </provider>

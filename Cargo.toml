@@ -25,5 +25,21 @@ serde = { version = "1.0", features = ["derive"] }
 # serde_json is just for the example, not required in general
 serde_json = "1.0"
 sha2 = "0.8.0"
-flate2 = "1.0.9"
+#flate2 = "1.0.9"
+#zip = "0.5.2"
 data-encoding = "2.1.2"
+#compress = "0.1.2"
+#flate2 = { version = "1.0", features = ["zlib"], default-features = false }
+#libflate = "0.1"
+snap = "0.2"
+libc = "0.2"
+# TODO: make full use this
+mwish_c_encoding = { path = "OssCZip" }
+#bzip2 = { version = "0.3", features = ["tokio"] }
+zip = "0.5"
+fs_extra = "1.1.0"
+
+[workspace]
+members = [
+    "OssCZip"
+]

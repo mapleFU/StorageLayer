@@ -6,6 +6,11 @@
       <sourceFolder url="file://$MODULE_DIR$/examples" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/OssCZip/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/OssCZip/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/OssCZip/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/OssCZip/benches" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/OssCZip/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

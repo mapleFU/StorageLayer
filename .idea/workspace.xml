@@ -10,10 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="586cf92e-6597-4121-9cd0-4d9d8e4f2294" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/OssCZip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OssCZip/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OssCZip/build.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OssCZip/src/lib.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/oss-storage-layer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/oss-storage-layer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/zk.rs" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,49 +35,59 @@
     <session id="-184362426">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="16" />
+          <entry key="project.closed" value="17" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="5" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="3" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="c" value="2" />
           <entry key="gitignore" value="2" />
-          <entry key="lock" value="3" />
+          <entry key="h" value="1" />
+          <entry key="lock" value="5" />
           <entry key="proto" value="3" />
-          <entry key="rs" value="33" />
-          <entry key="toml" value="9" />
+          <entry key="rs" value="41" />
+          <entry key="toml" value="12" />
+          <entry key="txt" value="1" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="CMakeLists.txt" value="1" />
+          <entry key="ObjectiveC" value="3" />
           <entry key="PLAIN_TEXT" value="5" />
-          <entry key="Rust" value="33" />
-          <entry key="TOML" value="12" />
+          <entry key="Rust" value="41" />
+          <entry key="TOML" value="17" />
+          <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="12" />
           <entry key="proto" value="17" />
-          <entry key="rs" value="10735" />
-          <entry key="toml" value="51" />
+          <entry key="rs" value="12750" />
+          <entry key="toml" value="178" />
+          <entry key="txt" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="CMakeLists.txt" value="8" />
           <entry key="PLAIN_TEXT" value="29" />
-          <entry key="Rust" value="10735" />
-          <entry key="TOML" value="51" />
+          <entry key="Rust" value="12750" />
+          <entry key="TOML" value="178" />
         </counts>
       </usages-collector>
     </session>
@@ -77,55 +97,54 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="202" column="42" selection-start-line="202" selection-start-column="42" selection-end-line="202" selection-end-column="42" />
+            <state relative-caret-position="4">
+              <caret line="268" column="26" lean-forward="true" selection-start-line="268" selection-start-column="26" selection-end-line="268" selection-end-column="26" />
               <folding>
-                <element signature="e#1707#1708#0" expanded="true" />
-                <element signature="e#1729#1730#0" expanded="true" />
+                <marker date="1561360546817" expanded="true" signature="5106:5107" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/db/mod.rs">
+        <entry file="file://$PROJECT_DIR$/OssCZip/build.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="14" selection-start-column="14" selection-end-column="14" />
+            <state relative-caret-position="351">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/db/redis.rs">
+        <entry file="file://$PROJECT_DIR$/OssCZip/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="24" column="65" selection-start-line="24" selection-start-column="65" selection-end-line="24" selection-end-column="65" />
+            <state relative-caret-position="228">
+              <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OSS/proto/zk.proto">
+        <entry file="file://$PROJECT_DIR$/OssCZip/src/lib.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="209">
+              <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OssCZip/Cargo.lock">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zk.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1710">
+            <state relative-caret-position="429">
               <caret line="116" selection-start-line="116" selection-end-line="116" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Cargo.lock">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -138,19 +157,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lib.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+            <state relative-caret-position="361">
+              <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -158,8 +168,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Cargo.toml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+            <state relative-caret-position="247">
+              <caret line="29" column="6" lean-forward="true" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OssCZip/Cargo.toml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -176,16 +195,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>u8</find>
-      <find>str</find>
-      <find>Message</find>
-      <find>write_to</find>
-      <find>bytes</find>
-      <find>cpu</find>
-      <find>server_data</find>
-      <find>disk</find>
-      <find>Server</find>
-      <find>.map</find>
       <find>ERROR</find>
       <find>file_accepter</find>
       <find>println</find>
@@ -205,7 +214,17 @@
       <find>upload_temp_data</find>
       <find>set</find>
       <find>Sha256</find>
+      <find>ZlibEncoder</find>
+      <find>compress::</find>
+      <find>zlib</find>
+      <find>unsafe</find>
       <find>tokio</find>
+      <find>c_char</find>
+      <find>cc</find>
+      <find>oss_compress</find>
+      <find>compress</find>
+      <find>oss</find>
+      <find>fs_extra</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -225,7 +244,12 @@
         <option value="$PROJECT_DIR$/src/db/mod.rs" />
         <option value="$PROJECT_DIR$/src/db/redis.rs" />
         <option value="$PROJECT_DIR$/src/lib.rs" />
+        <option value="$PROJECT_DIR$/OssCZip/lib.rs" />
+        <option value="$PROJECT_DIR$/OssCZip/Cargo.toml" />
+        <option value="$PROJECT_DIR$/OssCZip/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/Cargo.toml" />
+        <option value="$PROJECT_DIR$/OssCZip/build.rs" />
+        <option value="$PROJECT_DIR$/OssCZip/src/lib.rs" />
         <option value="$PROJECT_DIR$/src/main.rs" />
       </list>
     </option>
@@ -238,8 +262,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1920" />
-    <option name="height" value="1057" />
+    <option name="width" value="1440" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -247,7 +271,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -258,29 +281,13 @@
             <path>
               <item name="oss-storage-layer" type="b2602c69:ProjectViewProjectNode" />
               <item name="oss-storage-layer" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="OssCZip" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="oss-storage-layer" type="b2602c69:ProjectViewProjectNode" />
               <item name="oss-storage-layer" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="proto" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oss-storage-layer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oss-storage-layer" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oss-storage-layer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oss-storage-layer" type="462c0819:PsiDirectoryNode" />
-              <item name="OSS" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="oss-storage-layer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="oss-storage-layer" type="462c0819:PsiDirectoryNode" />
-              <item name="OSS" type="462c0819:PsiDirectoryNode" />
-              <item name="proto" type="462c0819:PsiDirectoryNode" />
+              <item name="OssCZip" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="oss-storage-layer" type="b2602c69:ProjectViewProjectNode" />
@@ -297,6 +304,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -307,14 +315,15 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OssCZip/build" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/OssCZip/data" />
+      <recent name="$PROJECT_DIR$/OssCZip/src" />
       <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/components/proto" />
-      <recent name="$PROJECT_DIR$/components" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -360,14 +369,38 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="Test test_compress (1)" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="test --package mwish_c_encoding --lib test_compress -- --exact" />
+      <option name="allFeatures" value="false" />
+      <option name="nocapture" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test test_compress" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="test --package mwish_c_encoding test_compress -- --exact" />
+      <option name="allFeatures" value="false" />
+      <option name="nocapture" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Cargo Command.Run oss-storage-layer" />
       <item itemvalue="Cargo Command.Run tr" />
       <item itemvalue="Cargo Command.Run sysinfo_demo" />
+      <item itemvalue="Cargo Command.Test test_compress" />
+      <item itemvalue="Cargo Command.Test test_compress (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Cargo Command.Run oss-storage-layer" />
+        <item itemvalue="Cargo Command.Test test_compress (1)" />
+        <item itemvalue="Cargo Command.Test test_compress" />
         <item itemvalue="Cargo Command.Run tr" />
         <item itemvalue="Cargo Command.Run sysinfo_demo" />
       </list>
@@ -398,30 +431,42 @@
       <workItem from="1560946726164" duration="5000" />
       <workItem from="1561100423853" duration="6100000" />
       <workItem from="1561138584425" duration="2174000" />
-      <workItem from="1561188314918" duration="22204000" />
+      <workItem from="1561188314918" duration="32526000" />
+      <workItem from="1561359352813" duration="1405000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Test_test_compress - 2019.06.24 at 14h 59m 59s.xml">
+      <configuration name="Test test_compress" configurationId="CargoCommandRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_test_compress_(1) - 2019.06.24 at 15h 07m 30s.xml">
+      <configuration name="Test test_compress (1)" configurationId="CargoCommandRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_test_compress_(1) - 2019.06.24 at 15h 10m 22s.xml">
+      <configuration name="Test test_compress (1)" configurationId="CargoCommandRunConfiguration" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64302000" />
+    <option name="totallyTimeSpent" value="76029000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="1057" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82738096" visible="true" weight="0.1368477" />
-      <window_info id="Structure" order="1" sideWeight="0.17261904" side_tool="true" visible="true" weight="0.1368477" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82592595" visible="true" weight="0.18597998" />
+      <window_info id="Structure" order="1" sideWeight="0.17407407" side_tool="true" visible="true" weight="0.18597998" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946752" visible="true" weight="0.4777202" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893504" weight="0.3477707" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.25049505" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005325" side_tool="true" weight="0.3108911" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49946752" visible="true" weight="0.3121019" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50106496" side_tool="true" weight="0.3069307" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -457,22 +502,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zk.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1710">
-          <caret line="116" selection-start-line="116" selection-end-line="116" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Cargo.lock">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
@@ -488,13 +519,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/db/redis.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
@@ -502,20 +526,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/OssCZip/.idea/misc.xml" />
+    <entry file="file://$PROJECT_DIR$/src/library.c" />
+    <entry file="file://$PROJECT_DIR$/src/library.h" />
+    <entry file="file://$PROJECT_DIR$/src/test_zlib.c" />
+    <entry file="file://$PROJECT_DIR$/src/zip.rs" />
+    <entry file="file://$PROJECT_DIR$/OssCZip/zip.rs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OssCZip/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OssCZip/Cargo.lock">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OssCZip/Cargo.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OssCZip/build.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zk.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="116" selection-start-line="116" selection-end-line="116" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Cargo.toml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+        <state relative-caret-position="247">
+          <caret line="29" column="6" lean-forward="true" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OssCZip/src/lib.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="202" column="42" selection-start-line="202" selection-start-column="42" selection-end-line="202" selection-end-column="42" />
+        <state relative-caret-position="4">
+          <caret line="268" column="26" lean-forward="true" selection-start-line="268" selection-start-column="26" selection-end-line="268" selection-end-column="26" />
           <folding>
-            <element signature="e#1707#1708#0" expanded="true" />
-            <element signature="e#1729#1730#0" expanded="true" />
+            <marker date="1561360546817" expanded="true" signature="5106:5107" ph="..." />
           </folding>
         </state>
       </provider>

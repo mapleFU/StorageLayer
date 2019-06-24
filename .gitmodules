@@ -1,3 +1,6 @@
 [submodule "OSS"]
 	path = OSS
 	url = https://github.com/mapleFU/OSS
+[submodule "OssCZip"]
+	path = OssCZip
+	url = https://github.com/mapleFU/OssCZip.git

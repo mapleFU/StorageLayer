@@ -1,4 +1,5 @@
 #![feature(proc_macro_hygiene, decl_macro)]
+#![feature(rustc_private)]
 
 use std::sync::Arc;
 use std::time::Duration;
@@ -11,14 +12,20 @@ use std::io::{self, Cursor, Write, BufReader, BufRead, Read};
 use std::fs::{self, File};
 use std::path::Path;
 use std::ops::Deref;
+use std::ffi::{CStr, CString};
+
+//use libc::c_char;
 
 mod db;
 use db::redis::RedisConnection;
 
 use sha2::{Sha256, Digest};
 
-use flate2::Compression;
-use flate2::read::ZlibEncoder;
+use fs_extra;
+
+//mod zip;
+use mwish_c_encoding;
+
 
 use zookeeper::{Acl, CreateMode, Watcher, WatchedEvent, ZooKeeper};
 use zookeeper::recipes::cache::PathChildrenCache;
@@ -27,6 +34,8 @@ use protobuf::{self, Message, ProtobufResult};
 use uuid::Uuid;
 use sysinfo::{NetworkExt, System, SystemExt, DiskExt};
 use eventual::Timer;
+
+use zip;
 
 use serde::{Serialize, Deserialize};
 use data_encoding::{HEXUPPER, HEXLOWER};
@@ -145,17 +154,21 @@ fn move_to_persistence(uid: String, connection: RedisConnection) -> Result<(), C
     let s: RedisUuidMessage = serde_json::from_str(&s).unwrap();
 
     // TODO: use concat to optimize these code
-    let new_name: String = TMP_DATA_DIR.clone().to_string() + &"/".to_string() + &s.uid;
-    let path = Path::new(&new_name);
-    let f = File::open(path).unwrap();
-    let mut z = ZlibEncoder::new(f, Compression::fast());
-    let mut buffer = [0;1024];
 
-    // TODO: learn how to fix [temporary value is freed at the end of this statement]
-    let cur_path = DATA_DIR.clone().to_string() + &"/".to_string() + &s.file_hash;
-    let dest_path = Path::new(&cur_path );
-    let mut f = File::create(dest_path).unwrap();
-    io::copy(&mut z, &mut f);
+    // old path
+    let old_name: String = TMP_DATA_DIR.clone().to_string() + &"/".to_string() + &s.uid;
+    let new_name: String = DATA_DIR.clone().to_string() +  &"/".to_string() + &s.file_hash + ".zip";
+    println!("old_name: {}", old_name);
+    let old_name = CString::new(old_name).unwrap();
+    let new_name = CString::new(new_name).unwrap();
+
+    unsafe {
+        mwish_c_encoding::oss_compress(old_name.as_ptr(), new_name.as_ptr());
+    }
+//    let old_path = Path::new(&old_name);
+//    let new_path = Path::new(&new_name);
+//
+//    fs_extra::file::move_file(old_path, new_path, &fs_extra::file::CopyOptions::new());
 
     Ok(())
 }
@@ -250,6 +263,13 @@ fn handle_multi(cont_type: &ContentType, data: Data) -> Result<Stream<Cursor<Vec
     Ok(Stream::from(Cursor::new(Vec::from("nmsl"))))
 }
 
+#[get("/hash/<hash>")]
+fn handle_hash_get(hash: String) {
+//    println!("你妈死了");
+    let path = String::from("data/") + &hash;
+    let file_path = Path::new(&path);
+}
+
 #[get("/data/<uid>")]
 fn handle_get(uid: String)->Result<rocket::response::NamedFile, Custom<String>> {
     println!("Get uid {}", uid);
@@ -258,6 +278,7 @@ fn handle_get(uid: String)->Result<rocket::response::NamedFile, Custom<String>> 
     let file_path = Path::new(&path);
 
     if !file_path.exists() && file_path.is_file() {
+        // maybe zip
         return Err(Custom(Status::NotFound, "NotFound".to_string()))
     }
     // TODO: unuse unwrap
@@ -287,10 +308,7 @@ fn zn_conn() -> Server {
     zk_pb
 }
 
-
 fn main() {
-
-
     let mut sys = System::new();
 
     let zk_urls = zk_server_urls();

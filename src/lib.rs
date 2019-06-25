@@ -9,7 +9,7 @@ extern crate env_logger;
 #[macro_use] extern crate rocket;
 
 
-extern crate zmq;
+//extern crate zmq;
 
 pub mod db;
 

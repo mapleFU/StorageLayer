@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="586cf92e-6597-4121-9cd0-4d9d8e4f2294" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,7 +64,7 @@
         <counts>
           <entry key="gitignore" value="12" />
           <entry key="proto" value="17" />
-          <entry key="rs" value="13383" />
+          <entry key="rs" value="13449" />
           <entry key="toml" value="178" />
           <entry key="txt" value="8" />
         </counts>
@@ -74,7 +73,7 @@
         <counts>
           <entry key="CMakeLists.txt" value="8" />
           <entry key="PLAIN_TEXT" value="29" />
-          <entry key="Rust" value="13383" />
+          <entry key="Rust" value="13449" />
           <entry key="TOML" value="178" />
         </counts>
       </usages-collector>
@@ -82,13 +81,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6930">
-              <caret line="388" column="69" selection-start-line="388" selection-start-column="66" selection-end-line="388" selection-end-column="69" />
+            <state relative-caret-position="203">
+              <caret line="222" column="57" selection-start-line="222" selection-start-column="57" selection-end-line="222" selection-end-column="57" />
               <folding>
-                <marker date="1561496757206" expanded="true" signature="5301:5302" ph="..." />
+                <marker date="1561503389113" expanded="true" signature="5301:5302" ph="..." />
               </folding>
             </state>
           </provider>
@@ -96,14 +95,18 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Cargo.lock">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="106" column="5" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OssCZip/build.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
-              <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+              <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -141,11 +144,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Cargo.toml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            <state relative-caret-position="411">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
             </state>
           </provider>
         </entry>
@@ -171,9 +174,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Environment</find>
-      <find>File</find>
-      <find>Custom</find>
       <find>System</find>
       <find>BufReader</find>
       <find>.read</find>
@@ -181,7 +181,6 @@
       <find>Path::</find>
       <find>upload_temp_data</find>
       <find>set</find>
-      <find>Sha256</find>
       <find>ZlibEncoder</find>
       <find>compress::</find>
       <find>zlib</find>
@@ -201,6 +200,10 @@
       <find>localhost</find>
       <find>redis</find>
       <find>zmq</find>
+      <find>sha2::</find>
+      <find>Sha256</find>
+      <find>&lt;hash&gt;</find>
+      <find>HEX</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -225,8 +228,8 @@
         <option value="$PROJECT_DIR$/OssCZip/build.rs" />
         <option value="$PROJECT_DIR$/OssCZip/src/lib.rs" />
         <option value="$PROJECT_DIR$/src/db/redis.rs" />
-        <option value="$PROJECT_DIR$/src/main.rs" />
         <option value="$PROJECT_DIR$/Cargo.toml" />
+        <option value="$PROJECT_DIR$/src/main.rs" />
       </list>
     </option>
   </component>
@@ -411,7 +414,7 @@
       <workItem from="1561359352813" duration="9081000" />
       <workItem from="1561392891166" duration="9000" />
       <workItem from="1561401010359" duration="3092000" />
-      <workItem from="1561494284333" duration="1773000" />
+      <workItem from="1561494284333" duration="3078000" />
     </task>
     <servers />
   </component>
@@ -427,25 +430,25 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88579000" />
+    <option name="totallyTimeSpent" value="89884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8230519" visible="true" weight="0.1423462" />
-      <window_info id="Structure" order="1" sideWeight="0.17694806" side_tool="true" visible="true" weight="0.1423462" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.822807" visible="true" weight="0.1423462" />
+      <window_info id="Structure" order="1" sideWeight="0.17719299" side_tool="true" visible="true" weight="0.1423462" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49893504" visible="true" weight="0.25783134" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893504" visible="true" weight="0.31325302" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49946752" weight="0.20361446" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49946752" weight="0.21204819" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50106496" side_tool="true" weight="0.3069307" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -565,27 +568,31 @@
     <entry file="file://$PROJECT_DIR$/OssCZip/build.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
-          <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Cargo.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="106" column="5" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Cargo.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6930">
-          <caret line="388" column="69" selection-start-line="388" selection-start-column="66" selection-end-line="388" selection-end-column="69" />
+        <state relative-caret-position="203">
+          <caret line="222" column="57" selection-start-line="222" selection-start-column="57" selection-end-line="222" selection-end-column="57" />
           <folding>
-            <marker date="1561496757206" expanded="true" signature="5301:5302" ph="..." />
+            <marker date="1561503389113" expanded="true" signature="5301:5302" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Cargo.lock">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Cargo.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>

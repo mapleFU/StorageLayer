@@ -219,7 +219,8 @@ fn upload_temp_data(uid: String, data: Data, connection: RedisConnection)->Resul
         let shas = sh.result();
         // TODO: make clear the diff
         println!("Upper {}; Lower {}, s.file_hash {}, base64 {}", HEXLOWER.encode(shas.as_slice()), HEXUPPER.encode(shas.as_slice()), s.file_hash, BASE64.encode(shas.as_slice()));
-        if BASE64.encode(shas.as_slice()) == s.file_hash {
+        // TODO: make clear what will hex infect.
+        if BASE64.encode(shas.as_slice()).replace("/", "-") == s.file_hash {
             return Ok(());
         } else {
             return Err(Custom(Status::BadRequest, "Different hash when uploading file".to_string()));

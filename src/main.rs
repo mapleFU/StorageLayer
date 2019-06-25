@@ -128,6 +128,9 @@ fn temp_uuid_request(post_body: Json<PostBody>, connection: RedisConnection, fil
     if exists_datafile_with_name(&file_hash) {
         return Err(Custom(Status::BadRequest, "duplicate hash".to_string()));
     }
+    if exists_datafile_with_name(&(file_hash.clone() + ".zip")) {
+        return Err(Custom(Status::BadRequest, "duplicate hash".to_string()));
+    }
     let post_body: PostBody = post_body.into_inner();
     // get size
     let size = post_body.size;
@@ -348,8 +351,6 @@ fn main() {
 
     let ctx = zmq::Context::new();
 
-
-
     thread::spawn(move || {
         let mut zmq_socket = ctx.socket(zmq::SUB).unwrap();
         let mut zmq_push_socket = ctx.socket(zmq::PUSH).unwrap();
@@ -446,11 +447,11 @@ fn main() {
 
     let redis_address = match env::var("REDIS_ADDRESS") {
         Ok(val) => val,
-        Err(_) => "redis://127.0.0.1/".to_string(),
+        Err(_) => "redis://maplewish.cn:6400/".to_string(),
     };
 
     // unwrap redis result
-    let redis_client = redis::Client::open(redis_address.as_str()).unwrap();
+//    let redis_client = redis::Client::open(redis_address.as_str()).unwrap();
     let manager = RedisConnectionManager::new(redis_address.as_str()).unwrap();
     let pool = r2d2::Pool::builder()
         .build(manager)

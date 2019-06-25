@@ -5,7 +5,7 @@ use rocket::State;
 use r2d2;
 use r2d2_redis::RedisConnectionManager;
 
-const REDIS_ADDRESS: &'static str = "redis://localhost:6379";
+const REDIS_ADDRESS: &'static str = "redis://maplewish.cn:6400";
 
 // Pool initiation.
 // Call it starting an app and store a pul as a rocket managed state.

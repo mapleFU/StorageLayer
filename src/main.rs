@@ -349,49 +349,49 @@ fn main() {
                                 LoggingWatcher).unwrap();
 
 
-    let ctx = zmq::Context::new();
-
-    thread::spawn(move || {
-        let mut zmq_socket = ctx.socket(zmq::SUB).unwrap();
-        let mut zmq_push_socket = ctx.socket(zmq::PUSH).unwrap();
-
-        if let Err(e) = zmq_socket.connect("tcp://127.0.0.1:11234") {
-            println!("{:?}", e);
-            panic!();
-        }
-
-        if let Err(e) = zmq_push_socket.connect("tcp://127.0.0.1:5558") {
-            println!("{:?}", e);
-            panic!();
-        }
-        zmq_socket.set_subscribe("hash".as_bytes());
-        println!("ZMQ Ready");
-        loop {
-            let mut message = zmq::Message::new().unwrap();
-            let rs = zmq_socket.recv(&mut message, zmq::DONTWAIT);
-
-
-            if let Err(r) = rs {
-                if r != zmq::Error::EAGAIN {
-                    println!("{:?}", r);
-                }
-                thread::sleep(Duration::from_millis(1));
-                continue;
-            }
-            match message.as_str() {
-                None => println!("Recv None"),
-                Some(s) => {
-                    let cur_path = String::from("data/") + s;
-                    if Path::new(&cur_path).exists() {
-                        println!("Receive request for path {}", cur_path);
-                        let zn_msg = zn_conn();
-                        let zn_msg: Vec<u8> =  Vec::from(zn_msg.write_to_bytes().unwrap());
-                        zmq_push_socket.send(zn_msg.as_slice(), zmq::DONTWAIT);
-                    }
-                }
-            };
-        }
-    });
+//    let ctx = zmq::Context::new();
+//
+//    thread::spawn(move || {
+//        let mut zmq_socket = ctx.socket(zmq::SUB).unwrap();
+//        let mut zmq_push_socket = ctx.socket(zmq::PUSH).unwrap();
+//
+//        if let Err(e) = zmq_socket.connect("tcp://127.0.0.1:11234") {
+//            println!("{:?}", e);
+//            panic!();
+//        }
+//
+//        if let Err(e) = zmq_push_socket.connect("tcp://127.0.0.1:5558") {
+//            println!("{:?}", e);
+//            panic!();
+//        }
+//        zmq_socket.set_subscribe("hash".as_bytes());
+//        println!("ZMQ Ready");
+//        loop {
+//            let mut message = zmq::Message::new().unwrap();
+//            let rs = zmq_socket.recv(&mut message, zmq::DONTWAIT);
+//
+//
+//            if let Err(r) = rs {
+//                if r != zmq::Error::EAGAIN {
+//                    println!("{:?}", r);
+//                }
+//                thread::sleep(Duration::from_millis(1));
+//                continue;
+//            }
+//            match message.as_str() {
+//                None => println!("Recv None"),
+//                Some(s) => {
+//                    let cur_path = String::from("data/") + s;
+//                    if Path::new(&cur_path).exists() {
+//                        println!("Receive request for path {}", cur_path);
+//                        let zn_msg = zn_conn();
+//                        let zn_msg: Vec<u8> =  Vec::from(zn_msg.write_to_bytes().unwrap());
+//                        zmq_push_socket.send(zn_msg.as_slice(), zmq::DONTWAIT);
+//                    }
+//                }
+//            };
+//        }
+//    });
 
     // connection to zookeeper
     let mut zk_pb = zn_conn();

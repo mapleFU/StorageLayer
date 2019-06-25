@@ -7,7 +7,7 @@ edition = "2018"
 [dependencies]
 zookeeper = "0.5"
 mio = "0.6"
-zmq = "0.8"
+#zmq = "0.8"
 log = "0.4.6"
 env_logger = "0.6.1"
 protobuf = "2.5.0"

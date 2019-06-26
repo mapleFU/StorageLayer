@@ -38,6 +38,7 @@ mwish_c_encoding = { path = "OssCZip" }
 #bzip2 = { version = "0.3", features = ["tokio"] }
 zip = "0.5"
 fs_extra = "1.1.0"
+lazy_static = "1.3.0"
 
 [workspace]
 members = [

@@ -1,5 +1,9 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 #![feature(rustc_private)]
+#![feature(const_string_new)]
+
+#[macro_use]
+extern crate lazy_static;
 
 use std::sync::Arc;
 use std::time::Duration;
@@ -90,6 +94,16 @@ const ZKDIR: &'static str = "/fs";
 const DATA_DIR: &'static str = "data";
 const TMP_DATA_DIR: &'static str = "data/temp";
 
+
+lazy_static! {
+    static ref DATA_DIRECTORY: String  = {
+        match env::var("DATA_DIR") {
+            Ok(val) => val,
+            Err(_) => "data".to_string(),
+        }
+    };
+}
+
 #[derive(Deserialize)]
 struct PostBody {
     size: u64
@@ -110,6 +124,9 @@ struct RedisUuidMessage {
 fn exists_datafile_with_name<T: AsRef<str>>(filename :T)-> bool {
     // TODO: build with more specific name
     // TODO: learn how to handle Rust string
+    let data_string = unsafe {
+      DATA_DIRECTORY.clone()
+    };
     let new_name = String::from(DATA_DIR.clone().to_string() + filename.as_ref() + ".dat");
     let path = Path::new(&new_name);
     let ret = path.exists() && path.is_file();
@@ -160,8 +177,8 @@ fn move_to_persistence(uid: String, connection: RedisConnection) -> Result<(), C
     // TODO: use concat to optimize these code
 
     // old path
-    let old_name: String = TMP_DATA_DIR.clone().to_string() + &"/".to_string() + &s.uid;
-    let new_name: String = DATA_DIR.clone().to_string() +  &"/".to_string() + &s.file_hash + ".zip";
+    let old_name: String = unsafe {DATA_DIRECTORY.clone() + "/temp" } + &"/".to_string() + &s.uid;
+    let new_name: String = unsafe {DATA_DIRECTORY.clone()} +  &"/".to_string() + &s.file_hash + ".zip";
     println!("old_name: {}", old_name);
     let old_name = CString::new(old_name).unwrap();
     let new_name = CString::new(new_name).unwrap();
@@ -190,7 +207,7 @@ fn upload_temp_data(uid: String, data: Data, connection: RedisConnection)->Resul
     let s: RedisUuidMessage = serde_json::from_str(&s).unwrap();
 
 //    let new_name = String::from(DATA_DIR.clone().to_string() + filename.as_ref() + ".dat");
-    let new_name: String = TMP_DATA_DIR.clone().to_string() + "/" + &s.uid;
+    let new_name: String = unsafe{DATA_DIRECTORY.clone()} + "/" + &s.uid;
     let path = Path::new(&new_name);
     // create file with path
     // TODO: add some logic lock to the file
@@ -265,7 +282,7 @@ fn handle_multi(cont_type: &ContentType, data: Data) -> Result<Stream<Cursor<Vec
 
     mp.foreach_entry(|mut e| {
         println!("{}", str::from_utf8(e.headers.name.as_bytes()).unwrap());
-        println!("{:?}", e.data.save().with_dir(DATA_DIR));
+        println!("{:?}", e.data.save().with_dir(unsafe {DATA_DIRECTORY.clone()}));
     });
     Ok(Stream::from(Cursor::new(Vec::from("nmsl"))))
 }
@@ -343,6 +360,7 @@ fn zn_conn() -> Server {
 
 fn main() {
     let mut sys = System::new();
+
 
     let zk_urls = zk_server_urls();
     println!("connecting to {}", zk_urls);
